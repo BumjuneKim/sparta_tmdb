@@ -28,4 +28,11 @@ router.route('/movies')
     return res.json(topRatedMovies)
   });
 
+router.route('/movies')
+  .post((req, res) => {
+    const { movieName } = req.body
+    console.log(movieName)
+    res.json({})
+  })
+
 module.exports = router;
