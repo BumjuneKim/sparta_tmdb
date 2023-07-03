@@ -1,25 +1,12 @@
 const getTopRatedMovies = async (searchWord) => {
-  const url = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1';
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'your key'
-    }
-  };
+  const url = `http://localhost:3000/api/movies?${searchWord ? `searchWord=${searchWord}` : ''}`
+  const response = await fetch(url);
 
-  const response = await fetch(url, options);
   if (response.status !== 200) {
     throw new Error('APi call Error!!!')
   }
 
-  const successResult = await response.json()
-  const topRatedMovies = successResult.results
-  if (searchWord) {
-    return topRatedMovies.filter((movie) => movie.title.includes(searchWord))
-  }
-
-  return topRatedMovies
+  return await response.json()
 };
 
 function renderMovieCard(movieList) {
